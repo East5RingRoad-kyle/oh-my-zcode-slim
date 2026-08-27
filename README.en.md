@@ -30,14 +30,14 @@ auto-matching is best-effort; say "orchestrate this" if it doesn't fire).
 | `fixer` | bounded implementer: implements, doesn't plan/research | unrestricted (Edit/Write available) |
 | `designer` | frontend UI/UX specialist | unrestricted |
 | `observer` | visual analysis of images/screenshots/PDFs, exact OCR | read-only (hard constraint) |
-| `council` + two `councillor`s | multi-perspective arbitration: two independent analysts in parallel, a synthesizer produces one answer | councillors read-only; council zero tools |
+| `council` + two `councillor`s | multi-perspective arbitration: two independent analysts in parallel, a synthesizer produces one answer | councillors read-only; council has no info/file tools (only its own TodoWrite) |
 
 Plus the `omzs-deepwork` skill: a phased workflow for large high-risk
 changes (phase file + oracle review gates + per-phase commits).
 
 Permission boundaries are three layers, stated honestly:
 1. **Tool allowlists (hard)**: read-only roles have no Edit/Write; observer
-   and both councillors have no Bash either; council has an empty tool set
+   and both councillors have no Bash either; council has only TodoWrite (no info/file tools)
    (pure text-in/text-out); fixer/designer have web tools disabled
    (Agent/Task/WebFetch/WebSearch).
 2. **permissionMode: default (semi-hard)**: Bash write operations from
@@ -125,6 +125,16 @@ permission boundaries. One improvement over the original: OMO registers
 agents through OpenCode's plugin API, while ZCode supports markdown
 subagent definitions natively — so this needs no plugin mechanism at all;
 `git clone` + one script and you're done.
+
+## Collaborating with process skills (e.g. superpowers)
+
+Process skills like superpowers own the WHAT/WHEN (TDD, systematic
+debugging, verification); this project owns the WHO (which specialist runs
+each step). They don't fight: once a process skill sets the sequence,
+omzs-dispatch only supplies role routing and does not layer a second
+workflow on top. Each step dispatches exactly once; specialists are leaf
+nodes and never load skills or dispatch further. Precedence: the process
+skill decides order and verification gates, dispatch decides the executor.
 
 ## Acknowledgments
 

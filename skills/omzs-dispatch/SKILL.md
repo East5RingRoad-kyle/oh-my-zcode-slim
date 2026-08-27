@@ -164,6 +164,24 @@ top of the prompt as its operating instructions.
    re-route", consult the routing table above and re-dispatch to the right
    lane. Never re-send the same task to the same role.
 
+## Collaboration with process skills (e.g. superpowers)
+
+You may be loaded alongside process skills like superpowers
+(brainstorming, test-driven-development, systematic-debugging,
+verification-before-completion, subagent-driven-development,
+dispatching-parallel-agents). Division of labor: **process skills own the
+WHAT and WHEN; you own the WHO.**
+
+- If a process skill is already driving (a plan exists, or TDD/debugging
+  discipline is active), follow its sequence. Use this skill only to pick
+  WHICH specialist executes each step — do not impose a second workflow on
+  top.
+- Do not double-dispatch. Each step runs in exactly one lane. A specialist
+  is a leaf node and must not load skills or dispatch further.
+- Precedence: the process skill decides order and verification gates; you
+  decide which role performs each step. If unsure, read the process
+  skill's current plan rather than re-routing on your own.
+
 ## Communication style (applies to you)
 
 - Answer directly, no preamble. One-word answers are fine.

@@ -23,15 +23,15 @@ lane,按路由表派给最合适的专家子代理,专家返回后统一 reconci
 | `fixer` | 有界执行者:实现,不规划不研究 | 不限(可用 Edit/Write) |
 | `designer` | 前端 UI/UX 专家 | 不限 |
 | `observer` | 图像/截图/PDF 视觉分析,精确 OCR | 只读(硬约束) |
-| `council` + 两个 `councillor` | 多视角仲裁:两个独立顾问并行分析,synthesizer 综合出唯一答案 | councillor 只读;council 零工具 |
+| `council` + 两个 `councillor` | 多视角仲裁:两个独立顾问并行分析,synthesizer 综合出唯一答案 | councillor 只读;council 无信息/文件工具(仅 TodoWrite 自有清单) |
 
 另有 `omzs-deepwork` skill:大型高风险变更的分相位工作流(相位文件 +
 oracle 审查门 + 相位提交)。
 
 权限边界是三层,诚实地说:
 1. **工具白名单(硬)**:只读角色没有 Edit/Write;observer 和两个
-   councillor 连 Bash 都没有;council 是空工具表(纯文本进出);
-   fixer/designer 禁用了联网工具(Agent/Task/WebFetch/WebSearch)。
+   councillor 连 Bash 都没有;council 仅剩 TodoWrite(无信息/文件工具,
+   纯文本进出);fixer/designer 禁用了联网工具(Agent/Task/WebFetch/WebSearch)。
 2. **permissionMode: default(半硬)**:explorer/oracle/librarian 的 Bash
    写操作会触发用户确认。
 3. **prompt 行为约束(软)**:角色剧本里的只读纪律。
@@ -106,6 +106,13 @@ frontmatter(`model:` / `thoughtLevel:` 字段),或用 `--scope workspace`
 权限边界这一最小核心。相对原版还升级了一点:OMO 用插件 API 注册
 agent,ZCode 原生支持 markdown 子代理定义,所以这里连插件机制都不需要,
 `git clone` + 一个脚本即完成。
+
+## 与其他 skills(superpowers 等)协作
+
+superpowers 等**流程类** skill 负责“做什么、何时做、怎么验证”;本项目负责
+“每步派给哪个角色”。两者不抢活:流程 skill 定了顺序后,omzs-dispatch 只做
+角色路由,不在其上再套一层流程;每个步骤只派一次,专家是叶子节点,不再加载
+skill 或继续派发。优先顺序:流程 skill 决定顺序与验证门,dispatch 决定执行者。
 
 ## 致谢
 
