@@ -149,6 +149,15 @@ superpowers 等**流程类** skill 负责“做什么、何时做、怎么验证
 角色路由,不在其上再套一层流程;每个步骤只派一次,专家是叶子节点,不再加载
 skill 或继续派发。优先顺序:流程 skill 决定顺序与验证门,dispatch 决定执行者。
 
+## 开发与贡献
+
+- 提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+  规范,仓库内置 `commit-msg` 钩子校验。克隆后启用:
+  `git config core.hooksPath .githooks`。
+- 变更记录维护在 [CHANGELOG.md](CHANGELOG.md),遵循
+  [Keep a Changelog](https://keepachangelog.com/en/1.1.0/);发版时更新它并
+  递增 `VERSION`。
+
 ## 致谢
 
 - [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim) —

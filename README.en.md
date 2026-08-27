@@ -185,6 +185,16 @@ workflow on top. Each step dispatches exactly once; specialists are leaf
 nodes and never load skills or dispatch further. Precedence: the process
 skill decides order and verification gates, dispatch decides the executor.
 
+## Development
+
+- Commit messages follow
+  [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/); a
+  bundled `commit-msg` hook enforces this. Enable it after cloning:
+  `git config core.hooksPath .githooks`.
+- Changes are tracked in [CHANGELOG.md](CHANGELOG.md), following
+  [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); update it and
+  bump `VERSION` when releasing.
+
 ## Acknowledgments
 
 - [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim) —
