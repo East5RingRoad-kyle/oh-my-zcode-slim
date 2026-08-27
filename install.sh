@@ -1,24 +1,36 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 #
 # oh-my-zcode-slim installer.
 #
-# 1. Registers 5 specialist subagents (explorer/oracle/librarian/fixer/designer)
-#    as native ZCode agents: ~/.zcode/agents/<name>.md
+# 1. Registers 9 team subagents (explorer/oracle/librarian/fixer/designer/
+#    observer/council/councillor-alpha/councillor-beta) as native ZCode
+#    agents: <agents-dir>/<name>.md
 # 2. Installs orchestrator skills (omzs-dispatch, omzs-deepwork) into
 #    ~/.agents/skills/ and symlinks them into ~/.zcode/skills/.
 #
 # Usage:
 #   ./install.sh                     # install everything
 #   ./install.sh --scope workspace   # agents into <cwd>/.zcode/agents instead
-#   ZCODE_HOME=... ./install.sh      # override ~/.zcode
+#   ZCODE_HOME=... ./install.sh      # override ~/.zcode (agents only; if you
+#                                    # set ZCode's storage.dir, point this at it)
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ZCODE_HOME="${ZCODE_HOME:-$HOME/.zcode}"
 AGENTS_SKILLS_DIR="${AGENTS_SKILLS_DIR:-$HOME/.agents/skills}"
 ZCODE_SKILLS_DIR="${ZCODE_SKILLS_DIR:-$HOME/.zcode/skills}"
+
+usage() {
+  echo "usage: ./install.sh [--scope workspace]" >&2
+  exit 1
+}
+
 SCOPE="user"
-[[ "${1:-}" == "--scope" && "${2:-}" == "workspace" ]] && SCOPE="workspace"
+[[ $# -gt 0 ]] && {
+  [[ "$1" == "--scope" && "${2:-}" == "workspace" ]] || usage
+  SCOPE="workspace"
+}
 
 SKILLS=(
   omzs-dispatch
@@ -58,13 +70,14 @@ for agent in "${AGENT_FILES[@]}"; do
     exit 1
   fi
   dst="$AGENTS_MD_DIR/$agent.md"
-  if [[ -f "$dst" && ! -L "$dst" ]] && ! cmp -s "$dst" "$src"; then
+  if [[ -f "$dst" ]] && ! cmp -s "$dst" "$src"; then
     # real file with local changes (e.g. edited via the ZCode settings UI).
     # Back it up; unchanged copies are overwritten silently.
     backup="$dst.omzs-backup.$(date +%Y%m%d%H%M%S)"
+    while [[ -e "$backup" ]]; do backup="$backup.$RANDOM"; done
     cp "$dst" "$backup"
     echo "WARNING: $dst had local changes; backed up to $backup" >&2
-    echo "         before overwriting (edit agents/$agent.md in the repo to make changes stick)." >&2
+    echo "         (edit agents/$agent.md in the repo to make changes stick)" >&2
   fi
   rm -f "$dst"
   cp "$src" "$dst"
@@ -73,10 +86,18 @@ done
 
 # --- 2. orchestrator skills ---
 mkdir -p "$AGENTS_SKILLS_DIR" "$ZCODE_SKILLS_DIR"
+
+# same-dir guard: cp then rm -rf on identical paths would delete the copy
+a="$(cd "$AGENTS_SKILLS_DIR" && pwd)"; z="$(cd "$ZCODE_SKILLS_DIR" && pwd)"
+if [[ "$a" == "$z" ]]; then
+  echo "ERROR: ZCODE_SKILLS_DIR and AGENTS_SKILLS_DIR resolve to the same directory ($a)." >&2
+  exit 1
+fi
+
 for skill in "${SKILLS[@]}"; do
   src="$HERE/skills/$skill"
   if [[ ! -f "$src/SKILL.md" ]]; then
-    echo "ERROR: $src/SKILL.md not found (repo corrupted?)" >&2
+    echo "ERROR: $src/SKILL.md not found (repo corrupted? re-run installs what's missing)" >&2
     exit 1
   fi
   if [[ -d "$AGENTS_SKILLS_DIR/$skill" && ! -L "$ZCODE_SKILLS_DIR/$skill" ]]; then
@@ -88,21 +109,16 @@ for skill in "${SKILLS[@]}"; do
 
   link="$ZCODE_SKILLS_DIR/$skill"
   rm -rf "$link"
-  # relative link when both dirs share the home prefix; absolute otherwise
-  case "$AGENTS_SKILLS_DIR/$skill" in
-    "$HOME"/*)
-      rel="$(cd "$ZCODE_SKILLS_DIR" && printf '%s/%s' "${AGENTS_SKILLS_DIR#$HOME/}" "$skill")"
-      ln -s "../../${rel%%/*}/$(dirname "${rel#*/}")/$skill" "$link" 2>/dev/null \
-        || ln -s "$AGENTS_SKILLS_DIR/$skill" "$link"
-      ;;
-    *)
-      ln -s "$AGENTS_SKILLS_DIR/$skill" "$link"
-      ;;
-  esac
+  ln -s "$AGENTS_SKILLS_DIR/$skill" "$link"
+  if [[ ! -e "$link" ]]; then
+    echo "ERROR: symlink $link does not resolve" >&2
+    exit 1
+  fi
   echo "symlinked $link -> $AGENTS_SKILLS_DIR/$skill"
 done
 
 echo
-echo "Done. Restart your ZCode session."
+echo "Done. Restart your ZCode session (new session, or relaunch the app)."
 echo "The nine roles appear in Settings > Subagents; per-agent model and"
 echo "thought level can be set there per agent (default: inherit session model)."
+echo "Quick check: new session -> type / -> omzs-dispatch should be listed."

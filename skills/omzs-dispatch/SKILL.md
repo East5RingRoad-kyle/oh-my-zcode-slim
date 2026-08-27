@@ -1,12 +1,14 @@
 ---
 name: "omzs-dispatch"
 description: >
-  oh-my-zcode-slim team dispatch discipline. Load when orchestrating multi-step
-  coding work: routing table for the explorer/oracle/librarian/fixer/designer/
-  observer subagents plus the council arbitration protocol, parallel dispatch
-  rules, reconcile loop, and handling of out-of-role rejections. Use when the
-  user asks to "orchestrate", mentions any team role by name, or automatically
-  for multi-lane work.
+  oh-my-zcode-slim team dispatch discipline: routing table and Agent-tool
+  dispatch syntax for nine subagents (explorer, oracle, librarian, fixer,
+  designer, observer, council, councillor-alpha, councillor-beta), the
+  council arbitration protocol, parallel dispatch rules, reconcile loop,
+  and out-of-role rejection handling. Use when the user asks to implement,
+  refactor, debug, review, or research anything touching more than one file
+  or step, says "orchestrate", mentions any of these roles by name, or
+  attaches an image/screenshot for analysis.
 ---
 
 # Dispatch Discipline — oh-my-zcode-slim
@@ -35,6 +37,16 @@ The specialists are registered as native ZCode subagents. Their prompts and
 tool permissions live in the team definition; you address them by name.
 All of them are leaf nodes — agent dispatch is disabled in their tool sets,
 so they cannot spawn each other. Routing always goes through you.
+
+Valid `subagent_type` values (the complete list, exact lowercase names):
+`explorer`, `oracle`, `librarian`, `fixer`, `designer`, `observer`,
+`council`, `councillor-alpha`, `councillor-beta`. Do NOT substitute the
+built-in `Explore` for `explorer` — the built-in lacks this team's output
+contract. If a dispatch fails with an unknown-agent-type error: check
+whether `~/.zcode/agents/<name>.md` exists; if missing, tell the user to
+run install.sh and restart the session; if present, fall back to
+dispatching `general-purpose` with the role file's contents pasted at the
+top of the prompt as its operating instructions.
 
 ### explorer — fast read-only codebase recon
 
@@ -118,8 +130,12 @@ so they cannot spawn each other. Routing always goes through you.
      constraints, decision to make). Each is independent; do not tell one
      what the other said.
   2. When both return, dispatch `council` with the original question plus
-     BOTH replies verbatim. Council has no tools — it only synthesizes.
-  3. Relay council's synthesis as the answer.
+     BOTH replies verbatim (no excerpts, no your own commentary). Council
+     has an empty tool set — it only synthesizes.
+  3. If a councillor fails or times out: retry that seat once. Still
+     failing → report to the user; do NOT proceed to synthesis with one
+     seat (council is instructed to refuse partial input).
+  4. Relay council's synthesis as the answer.
 - **Delegate when:** the decision is expensive to get wrong • two of your
   specialists genuinely disagree • the user explicitly asks for a council/
   second opinion.

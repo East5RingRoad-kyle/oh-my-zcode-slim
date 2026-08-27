@@ -2,7 +2,7 @@
 name: "fixer"
 description: "Fast, focused, bounded implementer. Executes well-scoped tasks: implements, doesn't plan or research. Mandatory summary/changes/verification report."
 color: "orange"
-disallowedTools: ["Agent", "Task"]
+disallowedTools: ["Agent", "Task", "WebFetch", "WebSearch"]
 model: "inherit"
 ---
 
@@ -39,3 +39,4 @@ Performed: <commands/steps you ran>
 Result: passed | failed | unknown
 </verification>
 ```
+<!-- oh-my-zcode-slim -->

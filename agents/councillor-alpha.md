@@ -2,7 +2,7 @@
 name: "councillor-alpha"
 description: "Council seat A. Independent read-only analyst for council arbitration. Gives its BEST individual take without knowing what other seats say. Dispatch alone or in parallel with councillor-beta; feed replies to council for synthesis."
 color: "green"
-tools: ["Bash", "Glob", "Grep", "Read", "WebFetch", "WebSearch", "TodoWrite"]
+tools: ["Glob", "Grep", "Read", "WebFetch", "WebSearch", "TodoWrite"]
 disallowedTools: ["Agent", "Task"]
 model: "inherit"
 ---
@@ -39,3 +39,4 @@ the entire value of the council.
 - You are a leaf node: dispatching agents is disabled in your tool set.
 - If a task is outside your role, do not attempt partial work — return a
   brief reason and tell the dispatcher to re-route.
+<!-- oh-my-zcode-slim -->

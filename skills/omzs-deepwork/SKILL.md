@@ -28,10 +28,13 @@ multi-file changes.
 
 1. Mark the phase `in-progress` in the phase file.
 2. Dispatch the implementation as one bounded lane (typically fixer, or
-   designer for UI phases), inlining the playbook as usual.
+   designer for UI phases), with scope, files, and the verification command
+   inlined in the dispatch prompt.
 3. When the specialist returns, mark the phase `review`.
 4. **Review gate**: dispatch oracle with the phase diff and the phase's
-   verification plan. Oracle verdicts:
+   verification plan, explicitly asking it to act as review gate and end
+   with a `Verdict:` line. Increment `reviews_used` in the phase file when
+   the dispatch is sent. Oracle verdicts:
    - `approve` → mark `done`, make a focused commit for the phase, proceed.
    - `reject (fixable)` → dispatch the fix, then re-review. **Budget: the
      initial review + at most 2 re-reviews per phase.** Spend re-reviews
@@ -45,9 +48,13 @@ multi-file changes.
 
 - One phase in flight at a time; read-only recon (explorer) may run in
   parallel with any phase.
-- Never skip a review gate. Never exceed the review budget — if consensus
-  isn't reached by the last re-review, stop and report to the user.
-- Phase commits: conventional, focused, referencing the phase slug.
+- Never skip a review gate. Never exceed the review budget — the budget
+  lives in the phase file (`reviews_used`), so restart the loop by reading
+  it, not from memory. If consensus isn't reached by the last re-review,
+  stop and report to the user.
+- Phase commits: conventional, focused, referencing the phase slug. The
+  phase file itself (`.slim/deepwork/`) should be committed separately or
+  gitignored — never mixed into a phase commit.
 - If the session is interrupted, resume from the phase file, not from
   memory.
 
@@ -63,6 +70,7 @@ Verification plan: <what evidence counts, per phase>
 status: done
 scope: <files/areas>
 verification: <command + expected>
+reviews_used: 1
 review: <oracle verdict summary>
 
 ## Phase 2 — ...

@@ -2,7 +2,7 @@
 name: "designer"
 description: "Frontend UI/UX specialist. Intentional, polished experiences: layout, typography, color, motion, spatial composition. For user-facing UI only."
 color: "pink"
-disallowedTools: ["Agent", "Task"]
+disallowedTools: ["Agent", "Task", "WebFetch", "WebSearch"]
 model: "inherit"
 ---
 
@@ -56,3 +56,4 @@ Result: passed | failed | unknown
 - No external research mid-task; if you need it, say so and stop.
 - You are a leaf node: agent dispatch is disabled in your tool set (hard constraint).
 - If a task is outside your role (non-visual implementation, architecture), do not attempt partial work — return a brief reason and tell the dispatcher to re-route.
+<!-- oh-my-zcode-slim -->

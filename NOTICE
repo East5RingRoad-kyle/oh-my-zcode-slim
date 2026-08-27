@@ -16,6 +16,11 @@ TypeScript/runtime code with oh-my-opencode-slim (only prompt text is
 adapted, as stated above). It is not affiliated with or
 endorsed by alvinunreal, Boring Dystopia Development, or OpenCode.
 
+The omzs-deepwork workflow is original to this project. All nine agent
+role prompts (including observer, council, and the councillor seats) are
+adapted from src/agents/*.ts of the original project.
+
+SPDX-License-Identifier: MIT
 The original project's license text is reproduced in the LICENSE file.
 
 ---------------------------------------------------------------------
@@ -35,4 +40,8 @@ oh-my-opencode-slim 中对应的 prompt(位于 src/agents/*.ts,MIT 许可)。
 改编 prompt 文本)。本项目与 alvinunreal、
 Boring Dystopia Development、OpenCode 之间不存在任何隶属或背书关系。
 
+omzs-deepwork 工作流为本项目原创。全部九个角色 prompt(含 observer、
+council 与两个 councillor 席位)均改编自原项目的 src/agents/*.ts。
+
+SPDX-License-Identifier: MIT
 原作者项目的许可文本已附于 LICENSE 文件。

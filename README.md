@@ -12,7 +12,7 @@
 
 你照常跟主 agent 对话。它加载 `omzs-dispatch` 后成为编排者,自动把工作拆成
 lane,按路由表派给最合适的专家子代理,专家返回后统一 reconcile 再汇报给你。
-**你不需要手工调用任何角色,专家之间也不互相调用**(星型调度,所有路由都经主 agent)。
+**你不需要手工调用任何角色,专家之间也不互相调用**(星型调度,所有路由都经主 agent;自动匹配是尽力而为,偶尔不触发时说一句 "orchestrate this")。
 
 | 角色 | 职责 | 工具权限 |
 |---|---|---|
@@ -28,8 +28,15 @@ lane,按路由表派给最合适的专家子代理,专家返回后统一 reconci
 另有 `omzs-deepwork` skill:大型高风险变更的分相位工作流(相位文件 +
 oracle 审查门 + 相位提交)。
 
-权限边界靠两层:角色 prompt 的行为约束(软)+ ZCode 子代理的 `tools`
-白名单(硬——explorer/oracle/librarian 的工具表里根本没有写工具)。
+权限边界是三层,诚实地说:
+1. **工具白名单(硬)**:只读角色没有 Edit/Write;observer 和两个
+   councillor 连 Bash 都没有;council 是空工具表(纯文本进出);
+   fixer/designer 禁用了联网工具(Agent/Task/WebFetch/WebSearch)。
+2. **permissionMode: default(半硬)**:explorer/oracle/librarian 的 Bash
+   写操作会触发用户确认。
+3. **prompt 行为约束(软)**:角色剧本里的只读纪律。
+Bash 理论上仍可达写路径(`sed -i` 等),第 2、3 层就是为此设的——在
+`bypassPermissions` 会话里请自行斟酌风险。
 
 ## 安装
 
@@ -56,6 +63,19 @@ cd ~/oh-my-zcode-slim
 前会自动备份为 `<name>.md.omzs-backup.<时间戳>`。想固化修改,请改仓库
 里的 `agents/*.md` 再重装。
 
+**安装后 30 秒自检**:新开一个 ZCode 会话 → Settings → Subagents 应列出
+9 个角色;输入 `/` 应能看到 omzs-dispatch / omzs-deepwork;然后问一句
+"这个仓库里 X 在哪",看它是否派发 explorer。
+
+**更新**:`git pull && ./install.sh`。你在设置页改过的角色会自动备份为
+`<name>.md.omzs-backup.<时间戳>`,不会丢;skill 侧的本地修改不备份,
+想固化请改仓库源文件。
+
+**故障排查**:角色没出现 → 确认 `~/.zcode/agents/` 下有 9 个 md 且配过
+`storage.dir` 的用 `ZCODE_HOME` 指向实际根;skill 没触发 → 说一句
+"orchestrate this" 强制加载;项目里 `.slim/deepwork/` 相位文件请单独
+commit 或加入 .gitignore。
+
 ## 模型配置(可选)
 
 **不配置 = 所有角色继承会话模型,开箱即用**(frontmatter 里
@@ -68,19 +88,21 @@ frontmatter(`model:` / `thoughtLevel:` 字段),或用 `--scope workspace`
 为某个项目单独配一套。
 
 推荐搭配:explorer/librarian 用快而便宜的模型(Flash 档),oracle/fixer
-用强模型(high/max 档)。
+用强模型(high/max 档);**council 双席位务必配不同模型**(如 alpha 用 A
+家、beta 用 B 家,council 综合者用强模型)——同模型双席位合法但价值有限。
 
 ## 怎么用
 
 - **自动**:开始多 lane 的非平凡任务,主 agent 加载 `omzs-dispatch` 自行编排。
-- **手动**:说 "orchestrate this" / "用 deepwork 流程做这个大重构"。
+- **手动**:说 "orchestrate this" / "用 deepwork 流程做这个大重构"(没触发时手动说一句即可)。
 - 子代理派发语法:Agent 工具 + `subagent_type: "explorer"` 等(编排 skill
   里有完整模板)。
 
 ## 设计取舍(相对 oh-my-opencode-slim)
 
-砍掉:preset 运行时热切换、council 多模型仲裁、桌面 companion、
-multiplexer 分屏、AST 工具、后台任务唤醒调度。保留:角色 + 路由契约 +
+砍掉:preset 运行时热切换、桌面 companion、multiplexer 分屏、AST 工具、
+后台任务唤醒调度。council 多模型仲裁保留为手动版:在设置页给两个席位
+配不同模型即可(原版是运行时自动切换)。保留:角色 + 路由契约 +
 权限边界这一最小核心。相对原版还升级了一点:OMO 用插件 API 注册
 agent,ZCode 原生支持 markdown 子代理定义,所以这里连插件机制都不需要,
 `git clone` + 一个脚本即完成。
