@@ -124,6 +124,15 @@ frontmatter(`model:` / `thoughtLevel:` 字段),或用 `--scope workspace`
 - 子代理派发语法:Agent 工具 + `subagent_type: "explorer"` 等(编排 skill
   里有完整模板)。
 
+一个典型的编排流:
+
+1. 你描述目标(例如“给这个 API 加缓存并补测试”)。
+2. 主 agent 拆 lane:先派 `explorer` 摸清现状,再派 `oracle` 定方案。
+3. 方案定了,把实现派给 `fixer`(UI 派给 `designer`),互不依赖的 lane 并行跑。
+4. 专家都返回后,主 agent reconcile 冲突、汇总成一份报告给你。
+
+装完先跑一次 `omzs self-test`,9 个角色全 `PASS` 即说明整支队伍已接通。
+
 ## 设计取舍(相对 oh-my-opencode-slim)
 
 砍掉:preset 运行时热切换、桌面 companion、multiplexer 分屏、AST 工具、

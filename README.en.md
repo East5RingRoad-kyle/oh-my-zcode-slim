@@ -151,6 +151,19 @@ itself on a strong model) — same-model seats are legal but weak.
 - Dispatch syntax: the Agent tool with `subagent_type: "explorer"` etc.
   (full template inside the dispatch skill).
 
+A typical orchestration flow:
+
+1. Describe the goal (e.g. "add caching to this API and cover it with tests").
+2. The main agent splits lanes: dispatch `explorer` to map the current
+   state, then `oracle` to settle the approach.
+3. Route the implementation to `fixer` (or `designer` for UI); independent
+   lanes run in parallel.
+4. After the specialists return, the main agent reconciles conflicts and
+   reports one summary.
+
+Right after installing, run `omzs self-test` once — all 9 roles PASS means
+the team is wired up.
+
 ## Design trade-offs (vs oh-my-opencode-slim)
 
 Dropped: runtime preset switching, the desktop companion, multiplexer

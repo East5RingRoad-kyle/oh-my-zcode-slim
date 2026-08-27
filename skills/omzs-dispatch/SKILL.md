@@ -165,6 +165,12 @@ Chinese equivalent like 自检 / 测试团队 / omzs 自检, ping every role onc
 with a minimal, no-op task instead of doing real work. This proves all nine
 subagents are registered, dispatchable by name, and return without error.
 
+This is a fixed, 9-dispatch sequence: 8 leaf-role dispatches in Phase 1,
+then 1 `council` dispatch in Phase 2, then a 9-row table in Phase 3. **The
+self-test is incomplete until every one of the 9 rows is reported. A
+single-agent "PASS" line is a bug, not a pass. Never stop after the first
+dispatch.**
+
 Phase 1 — dispatch the eight leaf roles in parallel (one message, multiple
 Agent calls). Each prompt is one self-contained line; none modifies files:
 
@@ -187,9 +193,14 @@ Agent calls). Each prompt is one self-contained line; none modifies files:
 
 Phase 2 — after the two councillors return, dispatch `council` with the
 question "Is 2+2=4?" plus BOTH councillor replies verbatim, asking it to
-synthesize.
+synthesize. This is the 9th and final dispatch and is mandatory.
 
-Phase 3 — report a table in the user's language, one row per role:
+Phase 3 — report a table in the user's language:
+
+Report exactly 9 rows, one per role in this order: `explorer`, `oracle`,
+`librarian`, `fixer`, `designer`, `observer`, `councillor-alpha`,
+`councillor-beta`, `council`. Do not omit any row and do not stop at the
+first PASS.
 
 - **PASS** if that role returned a real reply (its expected output block).
 - **FAIL** if the dispatch was rejected (e.g. "unknown agent type"), with
