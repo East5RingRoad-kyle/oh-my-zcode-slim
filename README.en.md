@@ -95,8 +95,8 @@ specialist via the ZCode settings UI, it is backed up first as
 
 **30-second self-check after install**: open a new ZCode session →
 Settings → Subagents should list 9 roles; typing `/` should show
-omzs-dispatch / omzs-deepwork; then ask "where is X in this repo" and watch
-for an explorer dispatch.
+omzs-dispatch / omzs-deepwork; then type `omzs self-test` — it should
+dispatch explorer to list the top-level directory and report PASS.
 
 **Updating**: `git pull && ./install.sh`. Roles you edited in the settings
 UI are backed up automatically as `<name>.md.omzs-backup.<timestamp>`;

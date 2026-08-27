@@ -7,8 +7,10 @@ description: >
   council arbitration protocol, parallel dispatch rules, reconcile loop,
   and out-of-role rejection handling. Use when the user asks to implement,
   refactor, debug, review, or research anything touching more than one file
-  or step, says "orchestrate", mentions any of these roles by name, or
-  attaches an image/screenshot for analysis.
+  or step, says "orchestrate", mentions any of these roles by name, attaches
+  an image/screenshot for analysis, or says "omzs self-test" / "self-test" /
+  "team self-test" (Chinese: 自检 / 测试团队 / omzs 自检) to verify the
+  team is wired up correctly.
 ---
 
 # Dispatch Discipline — oh-my-zcode-slim
@@ -155,6 +157,28 @@ at the top of the prompt as its operating instructions.
 - **Seat diversity:** the two seats are most valuable on different models
   (configure per-agent models in ZCode settings). Same-model seats are
   legal but weaker.
+
+## Self-test protocol
+
+When the user says `omzs self-test`, "self-test", "team self-test", or a
+Chinese equivalent like 自检 / 测试团队 / omzs 自检, run this minimal smoke
+test instead of a real task:
+
+1. Dispatch `explorer` (`subagent_type: "explorer"`) with one self-contained
+   read-only task: "List the files and directories at the top level of the
+   current working directory, then return your standard <results> block."
+   Do NOT run the search yourself.
+2. Wait for it to return.
+3. Report in the user's language:
+   - **PASS** if explorer returned a real `<results>` block containing file
+     paths — this proves name-based dispatch, read-only behavior, and the
+     output contract all work.
+   - **FAIL** with the exact error if the dispatch was rejected (e.g.
+     "unknown agent type"). In that case mention the fallback: read
+     `~/.zcode/agents/explorer.md`, paste its body into a `general-purpose`
+     dispatch, and re-run the same one-line task.
+
+This touches no files; it exists only to prove the team is wired up.
 
 ## Dispatch rules
 

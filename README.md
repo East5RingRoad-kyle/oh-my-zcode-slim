@@ -81,8 +81,9 @@ cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
 里的 `agents/*.md` 再重装。
 
 **安装后 30 秒自检**:新开一个 ZCode 会话 → Settings → Subagents 应列出
-9 个角色;输入 `/` 应能看到 omzs-dispatch / omzs-deepwork;然后问一句
-"这个仓库里 X 在哪",看它是否派发 explorer。
+9 个角色;输入 `/` 应能看到 omzs-dispatch / omzs-deepwork;然后输入
+`omzs self-test`(或中文说「团队自检」),它应派发 explorer 列出当前目录
+顶层文件并返回 PASS。
 
 **更新**:`git pull && ./install.sh`。你在设置页改过的角色会自动备份为
 `<name>.md.omzs-backup.<时间戳>`,不会丢;skill 侧的本地修改不备份,
