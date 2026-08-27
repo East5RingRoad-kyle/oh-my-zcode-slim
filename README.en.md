@@ -24,7 +24,7 @@ auto-matching is best-effort; say "orchestrate this" if it doesn't fire).
 | Role | Lane | Tools |
 |---|---|---|
 | main agent (orchestrator) | plan, route, dispatch, reconcile | unrestricted |
-| `explorer` | fast codebase recon: "where is X" | read-only (no write tools, hard constraint) |
+| `explorer` | fast codebase recon: "where is X" | read-only (no Edit/Write; Bash is read-only discipline, writes need confirmation) |
 | `oracle` | architecture advisor, reviewer, YAGNI enforcement | read-only (hard constraint) |
 | `librarian` | external docs research, fresh API usage | read-only + web |
 | `fixer` | bounded implementer: implements, doesn't plan/research | unrestricted (Edit/Write available) |
@@ -47,6 +47,14 @@ Bash can theoretically still reach write paths (`sed -i` etc.) — layers 2
 and 3 exist for that; weigh the risk yourself in `bypassPermissions`
 sessions.
 
+## Requirements
+
+- macOS / Linux built-in `bash` (pure bash — no python3/node needed).
+- On Windows use WSL or Git Bash (symlinks need admin/Developer Mode natively).
+- Use a ZCode build that supports `disallowedTools`, `permissionMode`, and
+  `thoughtLevel` frontmatter fields; older builds silently ignore them,
+  weakening the read-only constraints.
+
 ## Install
 
 First get the code — any of these works (install.sh does not depend on
@@ -65,7 +73,8 @@ cd ~/oh-my-zcode-slim   # or wherever you placed it
 
 Restart your ZCode session (new session, or relaunch the app).
 Uninstall: `./uninstall.sh` (use `--scope workspace` if installed that way,
-`--all` for both; only files carrying this project's marker are removed).
+`--all` for both; only files carrying this project's marker are removed —
+backups and empty dirs are left behind, delete them yourself for a full wipe).
 
 The installer does two things:
 
@@ -75,7 +84,8 @@ The installer does two things:
    `~/.zcode/skills/` (orchestration skills for the main agent).
 
 Options: `--scope workspace` installs the agents into the current
-project's `.zcode/agents/` (project-only); `ZCODE_HOME` /
+project's `.zcode/agents/` (project-only; **the orchestration skills are
+always installed globally**, not scoped); `ZCODE_HOME` /
 `AGENTS_SKILLS_DIR` / `ZCODE_SKILLS_DIR` env vars override target paths.
 
 **Note**: reinstalling overwrites installed copies. If you edited a

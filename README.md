@@ -17,7 +17,7 @@ lane,按路由表派给最合适的专家子代理,专家返回后统一 reconci
 | 角色 | 职责 | 工具权限 |
 |---|---|---|
 | 主 agent(编排者) | 计划、路由、派发、对账 | 不限 |
-| `explorer` | 代码库快速侦察:"X 在哪" | 只读(无写工具,硬约束) |
+| `explorer` | 代码库快速侦察:"X 在哪" | 只读(无 Edit/Write;Bash 走只读纪律,写操作触发确认) |
 | `oracle` | 架构顾问、评审、YAGNI 执法 | 只读(硬约束) |
 | `librarian` | 外部文档调研、最新 API 用法 | 只读 + 网络检索 |
 | `fixer` | 有界执行者:实现,不规划不研究 | 不限(可用 Edit/Write) |
@@ -38,6 +38,13 @@ oracle 审查门 + 相位提交)。
 Bash 理论上仍可达写路径(`sed -i` 等),第 2、3 层就是为此设的——在
 `bypassPermissions` 会话里请自行斟酌风险。
 
+## 环境要求
+
+- macOS / Linux 自带 `bash`(脚本纯 bash,不依赖 python3/node)。
+- Windows 请用 WSL 或 Git Bash(软链在原生 Windows 上需管理员/开发者模式)。
+- 建议使用支持 `disallowedTools`、`permissionMode`、`thoughtLevel` 等
+  frontmatter 字段的 ZCode 版本;旧版会静默忽略这些字段,只读约束随之变弱。
+
 ## 安装
 
 先拿到这份代码，任选其一(install.sh 不依赖 git/GitHub,只要目录在就能装):
@@ -53,7 +60,10 @@ cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
 ./install.sh
 ```
 
-重启 ZCode 会话即可。卸载:`./uninstall.sh`。
+重启 ZCode 会话即可。卸载:`./uninstall.sh`;若当初用 `--scope workspace`
+装的,用 `./uninstall.sh --scope workspace`;两个都装了用 `--all`。只删带
+本项目标记的文件,你的自定义角色和 `*.omzs-backup.*` 备份不会被删(卸载
+会保留这些备份和空目录,彻底清除可自行删除)。
 
 安装器做两件事:
 
@@ -63,8 +73,8 @@ cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
    建软链(编排 skill 给主 agent 用)。
 
 选项:`--scope workspace` 把子代理装到当前项目的 `.zcode/agents/`(仅本
-项目生效);`ZCODE_HOME` / `AGENTS_SKILLS_DIR` / `ZCODE_SKILLS_DIR` 环境
-变量可覆盖目标路径。
+项目生效;**编排 skill 始终装到全局目录**,不随 scope 隔离);`ZCODE_HOME` /
+`AGENTS_SKILLS_DIR` / `ZCODE_SKILLS_DIR` 环境变量可覆盖目标路径。
 
 **注意**:重装会覆盖已安装的副本。若你在 ZCode 设置页改过某个专家,重装
 前会自动备份为 `<name>.md.omzs-backup.<时间戳>`。想固化修改,请改仓库
