@@ -85,9 +85,15 @@ cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
 `omzs self-test`(或中文说「团队自检」),它应派发 explorer 列出当前目录
 顶层文件并返回 PASS。
 
-**更新**:`git pull && ./install.sh`。你在设置页改过的角色会自动备份为
-`<name>.md.omzs-backup.<时间戳>`,不会丢;skill 侧的本地修改不备份,
-想固化请改仓库源文件。
+**更新**(已安装用户):
+
+1. 先拿到新版代码:git 用户 `git pull`;非 git 用户重新拷目录或用新包覆盖旧目录。
+2. 回到仓库目录跑 `cd ~/oh-my-zcode-slim && ./install.sh`(install.sh 不依赖 git,没 .git 也能更新)。
+3. 重跑后新开一个 ZCode 会话即可。脚本会打印 `version: <旧> -> <新>` 告诉你从哪版升到哪版;你在设置页改过的角色会被自动备份为 `<name>.md.omzs-backup.<时间戳>` 不会丢。
+
+**查看当前装的版本**:看 `~/.zcode/agents/.omzs-version`(workspace 装在 `.zcode/agents/.omzs-version`),数字就是已安装版本;仓库里的 `VERSION` 是最新版。
+
+**回退**:git 用户 `git checkout <tag> && ./install.sh`;非 git 用户保留旧包,重新覆盖安装即可。想固化本地修改请改仓库源文件,skill 侧本地改动不备份会被覆盖。
 
 **故障排查**:角色没出现 → 确认 `~/.zcode/agents/` 下有 9 个 md 且配过
 `storage.dir` 的用 `ZCODE_HOME` 指向实际根;skill 没触发 → 说一句

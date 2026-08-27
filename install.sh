@@ -54,11 +54,24 @@ else
   AGENTS_MD_DIR="$ZCODE_HOME/agents"
 fi
 
+VERSION_FILE="$HERE/VERSION"
+NEW_VERSION="$(cat "$VERSION_FILE" 2>/dev/null | tr -d '[:space:]' || true)"
+NEW_VERSION="${NEW_VERSION:-unknown}"
+STAMP_FILE="$AGENTS_MD_DIR/.omzs-version"
+OLD_VERSION="$(cat "$STAMP_FILE" 2>/dev/null | tr -d '[:space:]' || true)"
+
 echo "oh-my-zcode-slim installer"
 echo "  repo:            $HERE"
 echo "  agents ($SCOPE): $AGENTS_MD_DIR"
 echo "  agents skills:   $AGENTS_SKILLS_DIR"
 echo "  zcode skills:    $ZCODE_SKILLS_DIR"
+if [[ -n "$OLD_VERSION" && "$OLD_VERSION" != "$NEW_VERSION" ]]; then
+  echo "  version:         $OLD_VERSION -> $NEW_VERSION (upgrade)"
+elif [[ -n "$OLD_VERSION" ]]; then
+  echo "  version:         $NEW_VERSION (reinstall, no change)"
+else
+  echo "  version:         $NEW_VERSION (fresh install)"
+fi
 echo
 
 # --- 1. native subagents ---
@@ -122,3 +135,4 @@ echo "Done. Restart your ZCode session (new session, or relaunch the app)."
 echo "The nine roles appear in Settings > Subagents; per-agent model and"
 echo "thought level can be set there per agent (default: inherit session model)."
 echo "Quick check: new session -> type / -> omzs-dispatch should be listed."
+printf '%s\n' "$NEW_VERSION" > "$STAMP_FILE"

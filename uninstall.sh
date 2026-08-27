@@ -68,6 +68,12 @@ remove_agents() {
   if [[ $removed -eq 0 ]]; then
     echo "note:     no omzs agents found under $dir (installed with --scope workspace?)" >&2
   fi
+  # version stamp
+  stamp="$dir/.omzs-version"
+  if [[ -f "$stamp" ]]; then
+    rm -f "$stamp"
+    echo "removed   $stamp"
+  fi
 }
 
 remove_skills() {

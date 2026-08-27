@@ -98,9 +98,23 @@ Settings → Subagents should list 9 roles; typing `/` should show
 omzs-dispatch / omzs-deepwork; then type `omzs self-test` — it should
 dispatch explorer to list the top-level directory and report PASS.
 
-**Updating**: `git pull && ./install.sh`. Roles you edited in the settings
-UI are backed up automatically as `<name>.md.omzs-backup.<timestamp>`;
-skill-side local edits are NOT backed up — edit the repo sources instead.
+**Updating** (for users who already installed):
+
+1. Get the new code: `git pull` if you cloned; otherwise re-copy the
+   directory or overwrite it with a new archive.
+2. In the repo directory run `cd ~/oh-my-zcode-slim && ./install.sh`
+   (install.sh does not depend on git — no .git needed to update).
+3. Open a new ZCode session afterwards. The script prints
+   `version: <old> -> <new>`; roles you edited in the settings UI are backed
+   up automatically as `<name>.md.omzs-backup.<timestamp>`.
+
+**Check the installed version**: read `~/.zcode/agents/.omzs-version`
+(workspace installs: `.zcode/agents/.omzs-version`). The repo's `VERSION`
+file is the latest.
+
+**Rollback**: git users run `git checkout <tag> && ./install.sh`; non-git
+users keep an old archive and reinstall from it. Skill-side local edits are
+NOT backed up — edit the repo sources instead.
 
 **Troubleshooting**: roles missing → check `~/.zcode/agents/` has 9 .md
 files (and point `ZCODE_HOME` at your storage.dir root if customized);
