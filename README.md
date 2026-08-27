@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/East5RingRoad-kyle/oh-my-zcode-slim)](LICENSE)
 [![ZCode](https://img.shields.io/badge/ZCode-native%20subagents-blue)](https://zcode.z.ai/)
 
-![oh-my-zcode-slim](assets/og.svg)
+![oh-my-zcode-slim demo](assets/demo.png)
 
 给 ZCode 的精简多 agent 编排套件:**9 个原生子代理(含 council 仲裁席位)+ 主 agent 编排 skill**,零编译代码,纯 markdown。
 

@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/East5RingRoad-kyle/oh-my-zcode-slim)](LICENSE)
 [![ZCode](https://img.shields.io/badge/ZCode-native%20subagents-blue)](https://zcode.z.ai/)
 
-![oh-my-zcode-slim](assets/og.svg)
+![oh-my-zcode-slim demo](assets/demo.png)
 
 A lean multi-agent orchestration suite for ZCode: **9 native subagents
 (including two council seats) + an orchestrator skill for the main agent**. Pure markdown,
