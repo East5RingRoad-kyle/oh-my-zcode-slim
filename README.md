@@ -2,6 +2,12 @@
 
 **简体中文** | [English](README.en.md)
 
+[![GitHub stars](https://img.shields.io/github/stars/East5RingRoad-kyle/oh-my-zcode-slim?style=social)](https://github.com/East5RingRoad-kyle/oh-my-zcode-slim)
+[![License](https://img.shields.io/github/license/East5RingRoad-kyle/oh-my-zcode-slim)](LICENSE)
+[![ZCode](https://img.shields.io/badge/ZCode-native%20subagents-blue)](https://zcode.z.ai/)
+
+![oh-my-zcode-slim](assets/og.svg)
+
 给 ZCode 的精简多 agent 编排套件:**9 个原生子代理(含 council 仲裁席位)+ 主 agent 编排 skill**,零编译代码,纯 markdown。
 
 > 本仓库同时是 ZCode 插件市场:在 **设置 → 插件 → 创建 → 添加插件市场** 填入
@@ -50,6 +56,14 @@ Bash 理论上仍可达写路径(`sed -i` 等),第 2、3 层就是为此设的�
   frontmatter 字段的 ZCode 版本;旧版会静默忽略这些字段,只读约束随之变弱。
 
 ## 安装
+
+**一条命令(推荐)**:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/East5RingRoad-kyle/oh-my-zcode-slim/main/install.sh | bash
+```
+
+> 这会直接使用本仓库的安装器,依赖系统自带 `bash`,无需 git 也可安装。
 
 先拿到这份代码，任选其一(install.sh 不依赖 git/GitHub,只要目录在就能装):
 
@@ -154,6 +168,15 @@ superpowers 等**流程类** skill 负责“做什么、何时做、怎么验证
 skill 或继续派发。优先顺序:流程 skill 决定顺序与验证门,dispatch 决定执行者。
 
 ## 开发与贡献
+
+想让这个项目更多人看到,不写代码也能帮上忙:
+
+- **点个 Star**:在仓库右上角点亮,能帮 ZCode 用户更快搜到它。
+- **转发**:把 [README](https://github.com/East5RingRoad-kyle/oh-my-zcode-slim) 或
+  [ZCode 官方反馈中心的展示帖](https://github.com/zai-org/feedback/discussions/388) 发给用 ZCode 的同事/群。
+- **提需求/修文档**:开 issue 或 PR,小到修文案、补路由案例、加翻译都可以。
+
+代码贡献时:
 
 - 提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
   规范,仓库内置 `commit-msg` 钩子校验。克隆后启用:

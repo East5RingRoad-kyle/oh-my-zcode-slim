@@ -2,6 +2,12 @@
 
 [简体中文](README.md) | **English**
 
+[![GitHub stars](https://img.shields.io/github/stars/East5RingRoad-kyle/oh-my-zcode-slim?style=social)](https://github.com/East5RingRoad-kyle/oh-my-zcode-slim)
+[![License](https://img.shields.io/github/license/East5RingRoad-kyle/oh-my-zcode-slim)](LICENSE)
+[![ZCode](https://img.shields.io/badge/ZCode-native%20subagents-blue)](https://zcode.z.ai/)
+
+![oh-my-zcode-slim](assets/og.svg)
+
 A lean multi-agent orchestration suite for ZCode: **9 native subagents
 (including two council seats) + an orchestrator skill for the main agent**. Pure markdown,
 zero compiled code.
@@ -61,6 +67,15 @@ sessions.
   weakening the read-only constraints.
 
 ## Install
+
+**One-liner (recommended)**:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/East5RingRoad-kyle/oh-my-zcode-slim/main/install.sh | bash
+```
+
+> This uses this repo's installer directly and only needs the system
+> `bash`; no git clone required.
 
 First get the code — any of these works (install.sh does not depend on
 git/GitHub; it only needs the directory to be present):
@@ -191,6 +206,14 @@ nodes and never load skills or dispatch further. Precedence: the process
 skill decides order and verification gates, dispatch decides the executor.
 
 ## Development
+
+Want to help more people find this project? No code required:
+
+- **Star the repo** in the top-right corner to make it easier for ZCode users to discover.
+- **Share the link** with ZCode users in your teams/communities.
+- **Open an issue or PR** for docs, routing examples, or translations.
+
+For code contributions:
 
 - Commit messages follow
   [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/); a

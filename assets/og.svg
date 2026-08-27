@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#17324d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <circle cx="1160" cy="90" r="220" fill="none" stroke="#38bdf8" stroke-opacity="0.18" stroke-width="2"/>
+  <circle cx="1180" cy="110" r="140" fill="none" stroke="#818cf8" stroke-opacity="0.14" stroke-width="2"/>
+  <text x="80" y="120" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="30" fill="#94a3b8" letter-spacing="2">OH-MY-ZCODE-SLIM</text>
+  <text x="80" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#f8fafc">9 native subagents</text>
+  <text x="80" y="286" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#f8fafc">+ 1 orchestrator skill</text>
+  <text x="80" y="366" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="32" fill="#cbd5e1">Pure markdown · zero compiled code · MIT</text>
+  <rect x="80" y="420" width="330" height="12" rx="6" fill="url(#accent)"/>
+  <text x="80" y="520" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="26" fill="#7dd3fc">ZCode plugin marketplace install · git clone + install.sh</text>
+  <text x="80" y="570" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="24" fill="#94a3b8">github.com/East5RingRoad-kyle/oh-my-zcode-slim</text>
+</svg>
