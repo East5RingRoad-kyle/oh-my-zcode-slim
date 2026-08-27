@@ -30,6 +30,10 @@ AGENT_FILES=(
   librarian
   fixer
   designer
+  observer
+  council
+  councillor-alpha
+  councillor-beta
 )
 
 if [[ "$SCOPE" == "workspace" ]]; then
@@ -100,5 +104,5 @@ done
 
 echo
 echo "Done. Restart your ZCode session."
-echo "The five specialists appear in Settings > Subagents; per-agent model and"
+echo "The nine roles appear in Settings > Subagents; per-agent model and"
 echo "thought level can be set there per agent (default: inherit session model)."

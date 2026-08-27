@@ -2,8 +2,8 @@
 
 [简体中文](README.md) | **English**
 
-A lean multi-agent orchestration suite for ZCode: **5 native subagent
-specialists + an orchestrator skill for the main agent**. Pure markdown,
+A lean multi-agent orchestration suite for ZCode: **9 native subagents
+(including two council seats) + an orchestrator skill for the main agent**. Pure markdown,
 zero compiled code.
 
 > This project is a derivative work of
@@ -28,6 +28,8 @@ each other** (hub-and-spoke; all routing goes through the main agent).
 | `librarian` | external docs research, fresh API usage | read-only + web |
 | `fixer` | bounded implementer: implements, doesn't plan/research | unrestricted (Edit/Write available) |
 | `designer` | frontend UI/UX specialist | unrestricted |
+| `observer` | visual analysis of images/screenshots/PDFs, exact OCR | read-only (hard constraint) |
+| `council` + two `councillor`s | multi-perspective arbitration: two independent analysts in parallel, a synthesizer produces one answer | councillors read-only; council zero tools |
 
 Plus the `omzs-deepwork` skill: a phased workflow for large high-risk
 changes (phase file + oracle review gates + per-phase commits).
@@ -48,7 +50,7 @@ Restart your ZCode session. Uninstall: `./uninstall.sh`.
 
 The installer does two things:
 
-1. Copies `agents/*.md` to `~/.zcode/agents/` — the five specialists appear
+1. Copies `agents/*.md` to `~/.zcode/agents/` — the nine roles appear
    immediately under Settings → Subagents → Installed.
 2. Copies `skills/omzs-*` to `~/.agents/skills/` and symlinks them into
    `~/.zcode/skills/` (orchestration skills for the main agent).

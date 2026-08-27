@@ -2,7 +2,7 @@
 
 **简体中文** | [English](README.en.md)
 
-给 ZCode 的精简多 agent 编排套件:**5 个原生子代理专家 + 主 agent 编排 skill**,零编译代码,纯 markdown。
+给 ZCode 的精简多 agent 编排套件:**9 个原生子代理(含 council 仲裁席位)+ 主 agent 编排 skill**,零编译代码,纯 markdown。
 
 > 本项目是 [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim)
 > (by alvinunreal / Boring Dystopia Development,MIT License)的衍生作品。
@@ -22,6 +22,8 @@ lane,按路由表派给最合适的专家子代理,专家返回后统一 reconci
 | `librarian` | 外部文档调研、最新 API 用法 | 只读 + 网络检索 |
 | `fixer` | 有界执行者:实现,不规划不研究 | 不限(可用 Edit/Write) |
 | `designer` | 前端 UI/UX 专家 | 不限 |
+| `observer` | 图像/截图/PDF 视觉分析,精确 OCR | 只读(硬约束) |
+| `council` + 两个 `councillor` | 多视角仲裁:两个独立顾问并行分析,synthesizer 综合出唯一答案 | councillor 只读;council 零工具 |
 
 另有 `omzs-deepwork` skill:大型高风险变更的分相位工作流(相位文件 +
 oracle 审查门 + 相位提交)。
@@ -41,7 +43,7 @@ cd ~/oh-my-zcode-slim
 
 安装器做两件事:
 
-1. 把 `agents/*.md` 拷到 `~/.zcode/agents/`——五个专家立刻出现在
+1. 把 `agents/*.md` 拷到 `~/.zcode/agents/`——九个角色立刻出现在
    Settings → Subagents 的 Installed 列表;
 2. 把 `skills/omzs-*` 拷到 `~/.agents/skills/` 并在 `~/.zcode/skills/`
    建软链(编排 skill 给主 agent 用)。

@@ -25,6 +25,10 @@ AGENT_FILES=(
   librarian
   fixer
   designer
+  observer
+  council
+  councillor-alpha
+  councillor-beta
 )
 
 if [[ "$SCOPE" == "workspace" ]]; then

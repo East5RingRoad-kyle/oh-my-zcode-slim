@@ -1,11 +1,12 @@
 ---
-name: "omzs-orchestrator"
+name: "omzs-dispatch"
 description: >
   oh-my-zcode-slim team dispatch discipline. Load when orchestrating multi-step
-  coding work: routing table for the explorer/oracle/librarian/fixer/designer
-  subagents (delegate-when / don't-delegate / rule-of-thumb), parallel dispatch
+  coding work: routing table for the explorer/oracle/librarian/fixer/designer/
+  observer subagents plus the council arbitration protocol, parallel dispatch
   rules, reconcile loop, and handling of out-of-role rejections. Use when the
-  user asks to "orchestrate" or automatically for multi-lane work.
+  user asks to "orchestrate", mentions any team role by name, or automatically
+  for multi-lane work.
 ---
 
 # Dispatch Discipline — oh-my-zcode-slim
@@ -32,6 +33,8 @@ for ZCode. See NOTICE in the repo root.
 
 The specialists are registered as native ZCode subagents. Their prompts and
 tool permissions live in the team definition; you address them by name.
+All of them are leaf nodes — agent dispatch is disabled in their tool sets,
+so they cannot spawn each other. Routing always goes through you.
 
 ### explorer — fast read-only codebase recon
 
@@ -91,6 +94,41 @@ tool permissions live in the team definition; you address them by name.
   produced. If copy is weak, rewrite the copy; never touch the visual
   structure.
 
+### observer — visual analysis (READ-ONLY)
+
+- Lane: interpreting images, screenshots, PDFs, diagrams; extracting exact
+  text from media.
+- **Delegate when:** the user attaches an image/screenshot/PDF • a task
+  requires reading a rendered page, chart, or photo • error output needs
+  OCR from a screenshot.
+- **Don't delegate when:** the content is already text in the conversation •
+  you can get the same information from reading the file's source.
+- **Context hygiene:** observer exists so raw media never enters your
+  context. Pass the media path to observer; never Read image/PDF files
+  yourself unless observer is unavailable.
+
+### council — multi-analyst arbitration
+
+- Lane: high-stakes questions where one perspective is risky: contentious
+  architectural choice, "which of these approaches", persistent
+  disagreement between specialists.
+- **Protocol (three dispatches, no shortcuts):**
+  1. Dispatch `councillor-alpha` and `councillor-beta` **in parallel, in a
+     single message**, with the SAME self-contained question (context,
+     constraints, decision to make). Each is independent; do not tell one
+     what the other said.
+  2. When both return, dispatch `council` with the original question plus
+     BOTH replies verbatim. Council has no tools — it only synthesizes.
+  3. Relay council's synthesis as the answer.
+- **Delegate when:** the decision is expensive to get wrong • two of your
+  specialists genuinely disagree • the user explicitly asks for a council/
+  second opinion.
+- **Don't delegate when:** cheap reversible decisions • routine routing •
+  questions with an objectively verifiable answer (just verify it).
+- **Seat diversity:** the two seats are most valuable on different models
+  (configure per-agent models in ZCode settings). Same-model seats are
+  legal but weaker.
+
 ## Dispatch rules
 
 1. **One lane per dispatch.** If a task needs two roles, that's two dispatches.
@@ -103,8 +141,9 @@ tool permissions live in the team definition; you address them by name.
    `run_in_background: true` and tell the user what's running; reconcile
    when the completion notifications arrive. Never poll in a loop.
 5. **Reconcile**: when specialists return, cross-check overlapping findings,
-   resolve contradictions (re-dispatch oracle if specialists disagree),
-   then report to the user as one summary with per-role contributions.
+   resolve contradictions (re-dispatch oracle — or convene a council — if
+   specialists disagree), then report to the user as one summary with
+   per-role contributions.
 6. **Out-of-role rejections**: if a specialist returns "outside my role —
    re-route", consult the routing table above and re-dispatch to the right
    lane. Never re-send the same task to the same role.
