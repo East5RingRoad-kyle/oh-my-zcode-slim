@@ -161,24 +161,44 @@ at the top of the prompt as its operating instructions.
 ## Self-test protocol
 
 When the user says `omzs self-test`, "self-test", "team self-test", or a
-Chinese equivalent like 自检 / 测试团队 / omzs 自检, run this minimal smoke
-test instead of a real task:
+Chinese equivalent like 自检 / 测试团队 / omzs 自检, ping every role once
+with a minimal, no-op task instead of doing real work. This proves all nine
+subagents are registered, dispatchable by name, and return without error.
 
-1. Dispatch `explorer` (`subagent_type: "explorer"`) with one self-contained
-   read-only task: "List the files and directories at the top level of the
-   current working directory, then return your standard <results> block."
-   Do NOT run the search yourself.
-2. Wait for it to return.
-3. Report in the user's language:
-   - **PASS** if explorer returned a real `<results>` block containing file
-     paths — this proves name-based dispatch, read-only behavior, and the
-     output contract all work.
-   - **FAIL** with the exact error if the dispatch was rejected (e.g.
-     "unknown agent type"). In that case mention the fallback: read
-     `~/.zcode/agents/explorer.md`, paste its body into a `general-purpose`
-     dispatch, and re-run the same one-line task.
+Phase 1 — dispatch the eight leaf roles in parallel (one message, multiple
+Agent calls). Each prompt is one self-contained line; none modifies files:
 
-This touches no files; it exists only to prove the team is wired up.
+- `explorer`: "List the files and directories at the top level of the
+  current working directory, then return your standard <results> block."
+- `oracle`: "Reply with your standard Findings/Risks/Recommendation
+  skeleton for a hypothetical empty project. Make no changes."
+- `librarian`: "Confirm you are ready to research and reply with your
+  Answer/Evidence/Version-note skeleton. Do not search the web."
+- `fixer`: "Confirm you are ready and return your summary/changes/
+  verification block with <changes> empty (make no edits)."
+- `designer`: "Confirm you are ready and return your summary/changes/
+  verification block with <changes> empty (make no edits)."
+- `observer`: "Confirm you are ready to receive image/PDF tasks and return
+  your What-this-is/Content/Visual-issues/Uncertainty skeleton."
+- `councillor-alpha`: "Reply to this trivial question with your
+  Position/Reasoning/Confidence block: 'Is 2+2=4?'"
+- `councillor-beta`: "Reply to the same trivial question with your
+  Position/Reasoning/Confidence block: 'Is 2+2=4?'"
+
+Phase 2 — after the two councillors return, dispatch `council` with the
+question "Is 2+2=4?" plus BOTH councillor replies verbatim, asking it to
+synthesize.
+
+Phase 3 — report a table in the user's language, one row per role:
+
+- **PASS** if that role returned a real reply (its expected output block).
+- **FAIL** if the dispatch was rejected (e.g. "unknown agent type"), with
+  the exact error.
+
+For any FAIL, say the per-role fallback: read `~/.zcode/agents/<name>.md`,
+paste its body into a `general-purpose` dispatch, and re-run that one-line
+task. This self-test touches no files; it exists only to prove the team is
+wired up.
 
 ## Dispatch rules
 

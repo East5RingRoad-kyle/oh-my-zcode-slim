@@ -95,8 +95,8 @@ specialist via the ZCode settings UI, it is backed up first as
 
 **30-second self-check after install**: open a new ZCode session →
 Settings → Subagents should list 9 roles; typing `/` should show
-omzs-dispatch / omzs-deepwork; then type `omzs self-test` — it should
-dispatch explorer to list the top-level directory and report PASS.
+omzs-dispatch / omzs-deepwork; then type `omzs self-test` — it pings all
+nine roles and returns a PASS/FAIL table (all PASS = the team is wired up).
 
 **Updating** (for users who already installed):
 

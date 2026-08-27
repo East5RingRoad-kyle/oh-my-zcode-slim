@@ -82,8 +82,8 @@ cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
 
 **安装后 30 秒自检**:新开一个 ZCode 会话 → Settings → Subagents 应列出
 9 个角色;输入 `/` 应能看到 omzs-dispatch / omzs-deepwork;然后输入
-`omzs self-test`(或中文说「团队自检」),它应派发 explorer 列出当前目录
-顶层文件并返回 PASS。
+`omzs self-test`(或中文说「团队自检」),它会 ping 全部 9 个角色并返回
+一张 PASS/FAIL 表,每个角色都 PASS 即说明整支队伍已接通。
 
 **更新**(已安装用户):
 
