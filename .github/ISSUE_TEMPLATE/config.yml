@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: ZCode official feedback
+    url: https://github.com/zai-org/feedback
+    about: Issues about ZCode itself, not this repository.
+  - name: oh-my-zcode-slim Show and tell
+    url: https://github.com/zai-org/feedback/discussions/388
+    about: Ask questions or discuss the project with the broader ZCode community.

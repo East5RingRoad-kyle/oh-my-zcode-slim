@@ -1,0 +1,37 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON manifests
+        run: |
+          jq empty marketplace.json
+          jq empty .zcode-plugin/plugin.json
+
+      - name: Validate version consistency
+        run: |
+          version=$(cat VERSION)
+          marketplace_version=$(jq -r '.plugins[0].version' marketplace.json)
+          plugin_version=$(jq -r '.version' .zcode-plugin/plugin.json)
+          echo "VERSION=${version}"
+          echo "marketplace=${marketplace_version}"
+          echo "plugin=${plugin_version}"
+          test "${version}" = "${marketplace_version}"
+          test "${version}" = "${plugin_version}"
+
+      - name: Validate required agents and skills
+        run: |
+          for agent in explorer oracle librarian fixer designer observer council councillor-alpha councillor-beta; do
+            test -f "agents/${agent}.md"
+          done
+          for skill in omzs-dispatch omzs-deepwork; do
+            test -f "skills/${skill}/SKILL.md"
+          done

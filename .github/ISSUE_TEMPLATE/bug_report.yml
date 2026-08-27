@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a problem with installation, agents, skills, or docs.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Before submitting, search existing issues to avoid duplicates.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Value from VERSION, or the git commit/release you are using.
+      placeholder: "0.1.1"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, ZCode version, install method (clone+install.sh or plugin marketplace).
+      placeholder: |
+        macOS 15 / ZCode 0.x / clone + ./install.sh
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Steps that caused the problem.
+      placeholder: |
+        1. Run ...
+        2. Open ZCode ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened, including error output.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste relevant output or attach files.
