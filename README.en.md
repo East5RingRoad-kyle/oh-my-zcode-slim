@@ -49,9 +49,17 @@ sessions.
 
 ## Install
 
+First get the code — any of these works (install.sh does not depend on
+git/GitHub; it only needs the directory to be present):
+
+- **git (preferred, once you have a repo URL)**: `git clone <repo-url> ~/oh-my-zcode-slim`
+- **shared/internal folder**: copy the whole `oh-my-zcode-slim/` directory over
+- **tarball**: `tar -czf omzs.tgz .`, send it, extract it
+
+Then, in the directory:
+
 ```bash
-git clone <this-repo> ~/oh-my-zcode-slim
-cd ~/oh-my-zcode-slim
+cd ~/oh-my-zcode-slim   # or wherever you placed it
 ./install.sh
 ```
 

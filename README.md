@@ -40,9 +40,16 @@ Bash 理论上仍可达写路径(`sed -i` 等),第 2、3 层就是为此设的�
 
 ## 安装
 
+先拿到这份代码，任选其一(install.sh 不依赖 git/GitHub,只要目录在就能装):
+
+- **git(推荐,已有仓库地址后)**:`git clone <repo-url> ~/oh-my-zcode-slim`
+- **内网/共享目录**:把整个 `oh-my-zcode-slim/` 目录拷到目标机器
+- **压缩包**:`tar -czf omzs.tgz .` 打包后发过去解压
+
+拿到目录后:
+
 ```bash
-git clone <this-repo> ~/oh-my-zcode-slim
-cd ~/oh-my-zcode-slim
+cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
 ./install.sh
 ```
 
