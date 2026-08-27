@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Editor/OS artifacts
+*.swp
+*.swo
+*~
+
+# Installer backups (generated when a locally-edited agent is overwritten)
+*.omzs-backup.*
+
+# deepwork phase files, if someone runs deepwork while THIS repo is their project
+.slim/
