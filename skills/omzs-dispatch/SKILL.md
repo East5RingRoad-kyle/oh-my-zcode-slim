@@ -38,15 +38,26 @@ tool permissions live in the team definition; you address them by name.
 All of them are leaf nodes — agent dispatch is disabled in their tool sets,
 so they cannot spawn each other. Routing always goes through you.
 
-Valid `subagent_type` values (the complete list, exact lowercase names):
-`explorer`, `oracle`, `librarian`, `fixer`, `designer`, `observer`,
-`council`, `councillor-alpha`, `councillor-beta`. Do NOT substitute the
-built-in `Explore` for `explorer` — the built-in lacks this team's output
-contract. If a dispatch fails with an unknown-agent-type error: check
-whether `~/.zcode/agents/<name>.md` exists; if missing, tell the user to
-run install.sh and restart the session; if present, fall back to
-dispatching `general-purpose` with the role file's contents pasted at the
-top of the prompt as its operating instructions.
+Valid `subagent_type` values (the complete list): `explorer`, `oracle`,
+`librarian`, `fixer`, `designer`, `observer`, `council`,
+`councillor-alpha`, `councillor-beta`.
+
+Dispatch resolution facts (verified against the ZCode runtime):
+- `subagent_type` is matched against each subagent's frontmatter `name`
+  field (case-sensitive). Our names are lowercase and distinct from the
+  built-in `Explore` (capital E), so `explorer` resolves to this team's
+  read-only agent, never the built-in.
+- User-defined subagents are dispatchable by name exactly like built-ins.
+  A name with spaces (e.g. `Code Search`) is also a valid `subagent_type`
+  string; ours simply contain no spaces.
+- Do NOT substitute `Explore` for `explorer` — the built-in lacks this
+  team's output contract.
+
+If a dispatch fails with an unknown-agent-type error: check whether
+`~/.zcode/agents/<name>.md` exists; if missing, tell the user to run
+install.sh and restart the session; if present but still rejected, fall
+back to dispatching `general-purpose` with the role file's contents pasted
+at the top of the prompt as its operating instructions.
 
 ### explorer — fast read-only codebase recon
 
