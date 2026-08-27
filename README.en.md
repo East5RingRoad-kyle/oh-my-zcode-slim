@@ -6,6 +6,11 @@ A lean multi-agent orchestration suite for ZCode: **9 native subagents
 (including two council seats) + an orchestrator skill for the main agent**. Pure markdown,
 zero compiled code.
 
+> This repository also acts as a ZCode plugin marketplace. In
+> **Settings → Plugins → Create → Add marketplace**, enter
+> `East5RingRoad-kyle/oh-my-zcode-slim` to install all 9 subagents and the
+> `omzs-*` skills directly; the classic `git clone + ./install.sh` flow still works.
+
 > This project is a derivative work of
 > [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim)
 > (by alvinunreal / Boring Dystopia Development, MIT License). The role

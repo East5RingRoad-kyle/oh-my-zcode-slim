@@ -4,6 +4,10 @@
 
 给 ZCode 的精简多 agent 编排套件:**9 个原生子代理(含 council 仲裁席位)+ 主 agent 编排 skill**,零编译代码,纯 markdown。
 
+> 本仓库同时是 ZCode 插件市场:在 **设置 → 插件 → 创建 → 添加插件市场** 填入
+> `East5RingRoad-kyle/oh-my-zcode-slim`,即可直接安装并加载全部 9 个角色和
+> `omzs-*` skills;传统 `git clone + ./install.sh` 安装方式依然可用。
+
 > 本项目是 [oh-my-opencode-slim](https://github.com/alvinunreal/oh-my-opencode-slim)
 > (by alvinunreal / Boring Dystopia Development,MIT License)的衍生作品。
 > 角色 prompt 与路由表改编自原项目 `src/agents/*.ts`。详见 [NOTICE](NOTICE)。
