@@ -11,8 +11,9 @@ skills/*/SKILL.md are adapted and translated from the corresponding
 prompts in oh-my-opencode-slim (src/agents/*.ts, MIT licensed).
 
 This project is an independent re-implementation for the ZCode CLI:
-it is pure markdown skills with no compiled code, and it does not share
-any source code with oh-my-opencode-slim. It is not affiliated with or
+it is pure markdown files with no compiled code, and it shares no
+TypeScript/runtime code with oh-my-opencode-slim (only prompt text is
+adapted, as stated above). It is not affiliated with or
 endorsed by alvinunreal, Boring Dystopia Development, or OpenCode.
 
 The original project's license text is reproduced in the LICENSE file.
@@ -29,8 +30,9 @@ Copyright (c) 2026 oh-my-zcode-slim contributors
 skills/*/SKILL.md 中的角色 prompt 与编排路由表改编/翻译自
 oh-my-opencode-slim 中对应的 prompt(位于 src/agents/*.ts,MIT 许可)。
 
-本项目是面向 ZCode CLI 的独立重新实现:纯 markdown skill、零编译代码,
-与 oh-my-opencode-slim 不共享任何源代码。本项目与 alvinunreal、
+本项目是面向 ZCode CLI 的独立重新实现:纯 markdown、零编译代码,
+与 oh-my-opencode-slim 不共享任何 TypeScript/运行时代码(仅按上文所述
+改编 prompt 文本)。本项目与 alvinunreal、
 Boring Dystopia Development、OpenCode 之间不存在任何隶属或背书关系。
 
 原作者项目的许可文本已附于 LICENSE 文件。

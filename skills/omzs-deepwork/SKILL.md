@@ -27,10 +27,10 @@ multi-file changes.
 ## Per-phase loop
 
 1. Mark the phase `in-progress` in the phase file.
-2. Dispatch the implementation as one bounded lane (typically @fixer, or
-   @designer for UI phases), inlining the playbook as usual.
+2. Dispatch the implementation as one bounded lane (typically fixer, or
+   designer for UI phases), inlining the playbook as usual.
 3. When the specialist returns, mark the phase `review`.
-4. **Review gate**: dispatch @oracle with the phase diff and the phase's
+4. **Review gate**: dispatch oracle with the phase diff and the phase's
    verification plan. Oracle verdicts:
    - `approve` → mark `done`, make a focused commit for the phase, proceed.
    - `reject (fixable)` → dispatch the fix, then re-review. **Budget: the
