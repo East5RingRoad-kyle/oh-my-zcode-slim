@@ -93,6 +93,8 @@ cd ~/oh-my-zcode-slim   # 或你放置该目录的路径
 
 **查看当前装的版本**:看 `~/.zcode/agents/.omzs-version`(workspace 装在 `.zcode/agents/.omzs-version`),数字就是已安装版本;仓库里的 `VERSION` 是最新版。
 
+**检查是否有新版**:在仓库目录跑 `./check-update.sh`(git 和非 git 用户都行,会对比本地 `VERSION` 与远端;fork 用户用 `OMZS_REPO=你的owner/repo ./check-update.sh`)。
+
 **回退**:git 用户 `git checkout <tag> && ./install.sh`;非 git 用户保留旧包,重新覆盖安装即可。想固化本地修改请改仓库源文件,skill 侧本地改动不备份会被覆盖。
 
 **故障排查**:角色没出现 → 确认 `~/.zcode/agents/` 下有 9 个 md 且配过

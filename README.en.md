@@ -112,6 +112,10 @@ dispatch explorer to list the top-level directory and report PASS.
 (workspace installs: `.zcode/agents/.omzs-version`). The repo's `VERSION`
 file is the latest.
 
+**Check for a newer version**: run `./check-update.sh` in the repo
+directory (works for both git and non-git users; it compares local
+`VERSION` against upstream). Forks: `OMZS_REPO=your-owner/repo ./check-update.sh`.
+
 **Rollback**: git users run `git checkout <tag> && ./install.sh`; non-git
 users keep an old archive and reinstall from it. Skill-side local edits are
 NOT backed up — edit the repo sources instead.
